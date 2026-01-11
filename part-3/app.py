@@ -14,23 +14,29 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    student_name = "Alex"
+    student_name = "Shankul"
     return render_template('index.html', name=student_name)  # Pass variable to template as {{ name }}
 
 
 @app.route('/profile')
 def profile():
     user_data = {
-        'name': 'Sarah',
-        'age': 22,
-        'course': 'Web Development',
-        'is_enrolled': True
+        'name': 'Shankul',
+        'age': 20,
+        'course': 'Deep Learning',
+        'is_enrolled': True,
+        'email':'shankulr@gmail.com',
+        'city' : 'Nashik', 
+        'college' : 'GESCOE'
     }
-    return render_template('profile.html',  # Pass multiple variables to template
-                           name=user_data['name'],
-                           age=user_data['age'],
-                           course=user_data['course'],
-                           is_enrolled=user_data['is_enrolled'])
+    return render_template('profile.html',
+        name=user_data['name'],
+        age=user_data['age'],
+        course=user_data['course'],
+        is_enrolled=user_data['is_enrolled'],
+        email=user_data['email'],
+        city=user_data['city'],
+        college=user_data['college'])
 
 
 @app.route('/skills')
@@ -47,6 +53,19 @@ def projects():
         {'name': 'Weather App', 'status': 'Planned', 'tech': 'JavaScript'},
     ]
     return render_template('projects.html', projects=project_list)
+
+
+#exercise 3.3
+@app.route('/grades')
+def grades():
+    student_grades = {
+        'Math': 'A',
+        'Computer Networks': 'B+',
+        'DBMS': 'A',
+        'Operating Systems': 'A-'
+    }
+    return render_template('grades.html', grades=student_grades)
+
 
 
 if __name__ == '__main__':

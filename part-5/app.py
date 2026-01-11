@@ -18,26 +18,32 @@ app = Flask(__name__)
 # =============================================================================
 
 PERSONAL_INFO = {
-    'name': 'Your Name',
-    'title': 'Web Developer',
-    'bio': 'A passionate developer learning Flask and web development.',
-    'email': 'your.email@example.com',
-    'github': 'https://github.com/yourusername',
-    'linkedin': 'https://linkedin.com/in/yourusername',
+    'name': 'Shankul Pravin Rathod',
+    'title': 'Full Stack Developer',
+    'bio': 'A passionate full stack developer with experience in building web application using Java,Spring Boot ,and a problem solver at heart solving DSA problems on leetcode and GFG daily.',
+    'email': 'shankulpravinrathod@gmail.com',
+    'github': 'https://github.com/ShankulR',
+    'linkedin': 'www.linkedin.com/in/shankul-pravin-rathod-788722375',
 }
 
 SKILLS = [
-    {'name': 'Python', 'level': 80},
+    {'name': 'Python', 'level': 50},
     {'name': 'HTML/CSS', 'level': 75},
-    {'name': 'Flask', 'level': 60},
-    {'name': 'JavaScript', 'level': 50},
-    {'name': 'SQL', 'level': 45},
+    {'name': 'JDBC', 'level': 60},
+    {'name': 'C++', 'level': 90},
+    {'name': 'SQL', 'level': 75},
+    {'name': 'JAVA', 'level': 80},
+    {'name': 'Spring Boot', 'level': 45},
+    {'name': 'Hibernate', 'level': 80},
+    {'name': 'Junit ', 'level': 60}
 ]
 
 PROJECTS = [
-    {'id': 1, 'name': 'Personal Website', 'description': 'A Flask-powered personal portfolio website.', 'tech': ['Python', 'Flask', 'HTML', 'CSS'], 'status': 'Completed'},
-    {'id': 2, 'name': 'Todo App', 'description': 'A simple task management application.', 'tech': ['Python', 'Flask', 'SQLite'], 'status': 'In Progress'},
-    {'id': 3, 'name': 'Weather Dashboard', 'description': 'Display weather data from an API.', 'tech': ['Python', 'Flask', 'API'], 'status': 'Planned'},
+    {'id': 1, 'name': 'Personal Portfolio', 'description': 'A Flask-powered personal portfolio website.', 'tech': ['Python', 'Flask', 'HTML', 'CSS'], 'status': 'Completed'},
+    {'id': 2, 'name': 'AI-Based Crop Advisory System', 'description': 'A Frontend and Backend Based Crop Advisory System for Farmers based on AI which uses the API key of Gemini .', 'tech': ['Java','Firebase', 'SpringBoot', 'Hibernate', 'REST API', 'ReactJS', 'HTML/CSS'], 'status': 'Completed'},
+    {'id': 3, 'name': 'Water Measuring Gauge', 'description': 'Display Water level data by using an Arduino Sensory it demonstrates the water density and its level in a particular container. This setup is portable in nature', 'tech': ['Java', 'SpringBoot', 'Gemini-API','Arduino Sensor'], 'status': 'Completed'},
+    {'id': 4, 'name': 'Inventory Management System', 'description': 'A portable and easy use system for managing the inventory for any type of business which also demonstrates the pending bookings, and payments.', 'tech': ['Java', 'SpringBoot', 'DOCKER', 'REST API', 'HTML/CSS'], 'status': 'Completed'},
+    {'id': 5, 'name': 'Android based Finance Management System', 'description': 'A simple system for managing finances of large business use or for personal use for an individual to maintain a balance between its expenditure & Savings', 'tech': ['Android Studio(IDE)', 'Android Emulator', 'SDK', 'Gradle', 'XML/C++',], 'status': 'Planned'},
 ]
 
 
@@ -74,6 +80,45 @@ def project_detail(project_id):
 def contact():
     return render_template('contact.html', info=PERSONAL_INFO)
 
+#exercise 5.2
+BLOG_POSTS = [
+    {
+        'id': 1,
+        'title': 'Why I Started Learning Flask',
+        'content': 'Flask is lightweight, flexible, and great for beginners.'
+    },
+    {
+        'id': 2,
+        'title': 'My Backend Journey',
+        'content': 'Learning Flask after Java and Spring Boot.'
+    }
+]
+
+
+@app.route('/blog')
+def blog():
+    return render_template(
+        'blog.html',
+        info=PERSONAL_INFO,   # REQUIRED for base.html
+        posts=BLOG_POSTS      # REQUIRED for blog.html
+    )
+
+
+#exercise 5.4
+@app.route('/skill/<skill_name>')
+def skill_detail(skill_name):
+    related_projects = []
+
+    for project in PROJECTS:
+        if skill_name.lower() in [t.lower() for t in project['tech']]:
+            related_projects.append(project)
+
+    return render_template(
+        'skill_detail.html',
+        info=PERSONAL_INFO,
+        skill_name=skill_name,
+        projects=related_projects
+    )
 
 if __name__ == '__main__':
     app.run(debug=True)
